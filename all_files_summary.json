@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Main actor for the bike showroom backend, defining Bike and Inquiry types with CRUD operations: addBike, getAllBikes (sorted by price), getBike, and submitInquiry, backed by Map storage.",
+  "backend/migration.mo": "Migration module that seeds three initial bikes (Yamaha R15, KTM Duke 390, Royal Enfield Classic 350) into the bikes map if it is empty, otherwise passes existing state through unchanged.",
+  "feature_evidence.json": "Feature evidence report mapping two implemented features—engine capacity display on bike cards/detail page and Unsplash image URL display—to their relevant frontend files and test IDs.",
+  "frontend-file-summaries.txt": "JSON document containing one-line summaries of all frontend source files, serving as a reference index for the project's React components, pages, hooks, and configuration files.",
+  "frontend/index.css": "Tailwind base CSS file defining OKLCH-based CSS custom properties for light and dark themes covering background, foreground, card, primary, border, and sidebar color tokens.",
+  "frontend/index.html": "Minimal HTML entry point titled 'Bike Online Showroom' that mounts the React app into a root div and loads the main TypeScript module.",
+  "frontend/src/App.tsx": "Root React component that configures TanStack Router with four routes (catalog, bike detail, contact, contact success) all wrapped in the persistent Layout component.",
+  "frontend/src/components/BikeCard.tsx": "Reusable card component that displays a bike's Unsplash photo, category badge, engine capacity, brand, name, description, specs row, and INR-formatted price with a link to the detail page.",
+  "frontend/src/components/BikeFilters.tsx": "Filter panel component providing search input, category and brand dropdowns, and min/max price fields with a reset button that appears when any filter is active.",
+  "frontend/src/components/Layout.tsx": "Defines the main app layout with a sticky header containing the MotoVerse logo, desktop and mobile navigation links (Catalog, Contact), and an 'Inquire Now' button.",
+  "frontend/src/hooks/useActor.ts": "Custom hook that creates and caches an ICP backend actor (authenticated or anonymous) using React Query, and invalidates dependent queries whenever the actor changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides an Internet Identity authentication context and provider, exposing login/logout functions, identity state, and login status via a React context and custom hook.",
+  "frontend/src/hooks/useQueries.ts": "Exports React Query hooks for fetching all bikes, fetching a single bike by ID, and submitting an inquiry mutation against the ICP backend actor.",
+  "frontend/src/index.css": "Global stylesheet that imports Barlow fonts, sets up Tailwind layers, defines OKLCH-based CSS custom properties for a dark-themed design system, and adds utility classes for gradients and card hover effects.",
+  "frontend/src/main.tsx": "Application entry point that mounts the React app with QueryClientProvider and InternetIdentityProvider wrappers around the root App component.",
+  "frontend/src/pages/BikeDetailPage.tsx": "Detail page for a single bike that fetches bike data by ID, displays a photo carousel, specs, price, and provides navigation back to the catalog and to the contact/inquiry page.",
+  "frontend/src/pages/CatalogPage.tsx": "Main catalog page featuring a hero banner, stats bar, and a filterable/searchable grid of bike cards sourced from the backend, with filters for search, category, brand, and price range.",
+  "frontend/src/pages/ContactPage.tsx": "A contact/inquiry form page that lets users select a bike and submit their name, email, phone, and message, with validation and navigation to a success page on submission.",
+  "frontend/src/pages/ContactSuccessPage.tsx": "A confirmation page shown after a successful inquiry submission, displaying a thank-you message, next-step instructions, and links to browse bikes or submit another inquiry.",
+  "frontend/tailwind.config.js": "Tailwind CSS configuration defining custom fonts (Barlow/Barlow Condensed), OKLCH-based color tokens, border radii, glow box shadows, and fade-in/accordion animations, with typography, container-queries, and animate plugins.",
+  "project_state.json": "Project state metadata for the Bike Showroom app, tracking existing features (catalog display, Unsplash images) and pending feature requests (seeding backend with three bikes and displaying their data)."
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-ensure-the-catalog-page-and-bike-cards-display-the-engine-capacity-e-g-155cc-and-mileage-e-g-40-km-l-fields-alongside-price-for-each-bike-using-the-data-fetched-from-the-backend",
+      "featureTitle": "Ensure the catalog page and bike cards display the engine capacity (e.g., '155cc') and mileage (e.g., '40 km/l') fields alongside price for each bike, using the data fetched from the backend.",
+      "files": [
+        "frontend/src/components/BikeCard.tsx",
+        "frontend/src/pages/BikeDetailPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-the-unsplash-image-urls-provided-for-each-bike-as-the-bike-photo-in-both-the-catalog-card-and-detail-page-use-the-exact-urls-yamaha-r15-https-images-unsplash-com-photo-1609630875171-b1321377ee65-ktm-duke-390-https-images-unsplash-com-photo-1617814076668-7d9f5bff031f-royal-enfield-classic-350-https-images-unsplash-com-photo-1597008858255-6c1b16ef5b24",
+      "featureTitle": "Display the Unsplash image URLs provided for each bike as the bike photo in both the catalog card and detail page. Use the exact URLs: Yamaha R15 → https://images.unsplash.com/photo-1609630875171-b1321377ee65, KTM Duke 390 → https://images.unsplash.com/photo-1617814076668-7d9f5bff031f, Royal Enfield Classic 350 → https://images.unsplash.com/photo-1597008858255-6c1b16ef5b24.",
+      "files": [
+        "frontend/src/components/BikeCard.tsx",
+        "frontend/src/pages/BikeDetailPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

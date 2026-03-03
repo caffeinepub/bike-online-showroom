@@ -1,0 +1,49 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Populate bike catalog with Yamaha R15, KTM Duke 390, and Royal Enfield Classic 350 data",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Display engine capacity and mileage fields in catalog cards and detail page for each bike",
+      "acceptanceCriteria": [
+        "Each bike card on the catalog page shows the engine and mileage values.",
+        "The bike detail page also displays engine and mileage in the specs section.",
+        "Values match what is stored in the backend (e.g., ₹1,80,000, 155cc, 40 km/l for Yamaha R15)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/BikeCard.tsx",
+          "operation": "modify",
+          "description": "Add engine and mileage display below the price in each bike card, reading from the bike.engine and bike.mileage properties fetched from the backend."
+        },
+        {
+          "path": "frontend/src/pages/BikeDetailPage.tsx",
+          "operation": "modify",
+          "description": "Add engine and mileage rows in the specifications section of the bike detail page, displaying the values from bike.engine and bike.mileage properties."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Display Unsplash image URLs as bike photos in catalog cards and detail page",
+      "acceptanceCriteria": [
+        "BikeCard renders the bike's image URL from backend data as the card photo.",
+        "BikeDetailPage renders the same image URL in the photo carousel.",
+        "No placeholder image is shown when a valid image URL is present."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/BikeCard.tsx",
+          "operation": "modify",
+          "description": "Update the image rendering logic to use bike.photos[0] from the backend as the card image source instead of category-based placeholder images when a valid photo URL is present."
+        },
+        {
+          "path": "frontend/src/pages/BikeDetailPage.tsx",
+          "operation": "modify",
+          "description": "Update the carousel to render bike.photos array from the backend as the image sources, ensuring the Unsplash URLs (e.g., https://images.unsplash.com/photo-1609630875171-b1321377ee65 for Yamaha R15) are displayed in the photo carousel."
+        }
+      ]
+    }
+  ]
+}

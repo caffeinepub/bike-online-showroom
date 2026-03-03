@@ -1,0 +1,78 @@
+{
+  "kind": "build_request",
+  "title": "Populate bike catalog with Yamaha R15, KTM Duke 390, and Royal Enfield Classic 350 data",
+  "projectName": "MotoVerse Showroom",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Seed the backend with the following three bikes if the catalog is empty: (1) Yamaha R15 — price ₹1,80,000, engine 155cc, mileage 40 km/l, image https://images.unsplash.com/photo-1609630875171-b1321377ee65; (2) KTM Duke 390 — price ₹3,10,000, engine 373cc, mileage 28 km/l, image https://images.unsplash.com/photo-1617814076668-7d9f5bff031f; (3) Royal Enfield Classic 350 — price ₹1,95,000, engine 349cc, mileage 35 km/l, image https://images.unsplash.com/photo-1597008858255-6c1b16ef5b24.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "Yamaha R15",
+          "KTM Duke 390",
+          "Royal Enfield Classic 350"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On first deploy, the backend stable map contains exactly the three specified bikes.",
+        "Each bike record includes name, price, engine, mileage, and image URL fields.",
+        "Calling the getAllBikes function returns all three bikes."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Ensure the catalog page and bike cards display the engine capacity (e.g., '155cc') and mileage (e.g., '40 km/l') fields alongside price for each bike, using the data fetched from the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "engine: \"155cc\"",
+          "mileage: \"40 km/l\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each bike card on the catalog page shows the engine and mileage values.",
+        "The bike detail page also displays engine and mileage in the specs section.",
+        "Values match what is stored in the backend (e.g., ₹1,80,000, 155cc, 40 km/l for Yamaha R15)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Display the Unsplash image URLs provided for each bike as the bike photo in both the catalog card and detail page. Use the exact URLs: Yamaha R15 → https://images.unsplash.com/photo-1609630875171-b1321377ee65, KTM Duke 390 → https://images.unsplash.com/photo-1617814076668-7d9f5bff031f, Royal Enfield Classic 350 → https://images.unsplash.com/photo-1597008858255-6c1b16ef5b24.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "image: \"https://images.unsplash.com/photo-1609630875171-b1321377ee65\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "BikeCard renders the bike's image URL from backend data as the card photo.",
+        "BikeDetailPage renders the same image URL in the photo carousel.",
+        "No placeholder image is shown when a valid image URL is present."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not introduce an Express.js or Node.js backend — all data must be stored and served from the existing Motoko backend actor.",
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui."
+  ],
+  "nonGoals": [
+    "Adding new bikes beyond the three specified.",
+    "Implementing an admin UI to add bikes via a form at this stage.",
+    "Changing the overall visual theme or layout."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

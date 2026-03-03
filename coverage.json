@@ -1,0 +1,63 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-03-02T03:49:35.470Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Seed the backend with the following three bikes if the catalog is empty: (1) Yamaha R15 — price ₹1,80,000, engine 155cc, mileage 40 km/l, image https://images.unsplash.com/photo-1609630875171-b1321377ee65; (2) KTM Duke 390 — price ₹3,10,000, engine 373cc, mileage 28 km/l, image https://images.unsplash.com/photo-1617814076668-7d9f5bff031f; (3) Royal Enfield Classic 350 — price ₹1,95,000, engine 349cc, mileage 35 km/l, image https://images.unsplash.com/photo-1597008858255-6c1b16ef5b24.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Ensure the catalog page and bike cards display the engine capacity (e.g., '155cc') and mileage (e.g., '40 km/l') fields alongside price for each bike, using the data fetched from the backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/BikeCard.tsx",
+          "frontend/src/pages/BikeDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/BikeCard.tsx",
+          "frontend/src/pages/BikeDetailPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Display the Unsplash image URLs provided for each bike as the bike photo in both the catalog card and detail page. Use the exact URLs: Yamaha R15 → https://images.unsplash.com/photo-1609630875171-b1321377ee65, KTM Duke 390 → https://images.unsplash.com/photo-1617814076668-7d9f5bff031f, Royal Enfield Classic 350 → https://images.unsplash.com/photo-1597008858255-6c1b16ef5b24.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/BikeCard.tsx",
+          "frontend/src/pages/BikeDetailPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/BikeCard.tsx",
+          "frontend/src/pages/BikeDetailPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/BikeCard.tsx",
+    "frontend/src/pages/BikeDetailPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "frontend/src/index.css": "Global styles with a dark sporty theme using OKLCH color tokens, Barlow Condensed/Barlow fonts imported from Google Fonts, and utility classes for hero overlays, text gradients, and card hover effects.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the design system with Barlow Condensed display font, Barlow body font, sharp border-radius, glow box shadows, and fade-in animation keyframes.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations: fetching all bikes, fetching a single bike by ID, and submitting an inquiry via mutation with cache invalidation.",
+  "frontend/src/App.tsx": "Main app component setting up TanStack Router with routes for the catalog (home), bike detail, contact, and contact success pages, all wrapped in the Layout component via a root route.",
+  "frontend/src/components/Layout.tsx": "Persistent layout shell with a sticky header (logo, nav links, CTA button, mobile menu) and a footer with brand info, quick links, and caffeine.ai attribution.",
+  "frontend/src/components/BikeCard.tsx": "Reusable bike card component displaying the bike's Unsplash photo (from `bike.photos[0]`), brand, name, description, engine capacity badge, INR-formatted price, and a hover-animated link to the detail page.",
+  "frontend/src/components/BikeFilters.tsx": "Filter panel component with search input, category/brand dropdowns, and min/max price inputs, plus a reset button that appears when any filter is active.",
+  "frontend/src/pages/CatalogPage.tsx": "Homepage/catalog page with a full-width hero section, stats bar, BikeFilters integration, client-side filtering logic, loading skeletons, empty states, and a responsive bike grid.",
+  "frontend/src/pages/BikeDetailPage.tsx": "Bike detail page fetching a single bike by ID, displaying the Unsplash photo gallery with navigation, engine badge, INR-formatted price, full specs (engine, weight, frame), description, color options, and an inquiry CTA.",
+  "frontend/src/pages/ContactPage.tsx": "Contact/inquiry form page with validated fields (name, email, phone, bike dropdown, message), inline error display, submission via backend mutation, and a sidebar with process steps.",
+  "frontend/src/pages/ContactSuccessPage.tsx": "Post-submission success confirmation page showing a checkmark, thank-you message, what-to-expect steps, and navigation back to the catalog or to submit another inquiry."
+}
