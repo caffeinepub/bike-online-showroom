@@ -1,6 +1,21 @@
+import AuthModal from "@/components/AuthModal";
+import ProfileDropdown from "@/components/ProfileDropdown";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Bike, Menu, Phone, X } from "lucide-react";
+import {
+  Bike,
+  Heart,
+  LogIn,
+  Menu,
+  Phone,
+  ShoppingCart,
+  User,
+  UserPlus,
+  X,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
@@ -10,12 +25,44 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
+  const {
+    totalItems,
+    showAuthModal: cartAuthModal,
+    setShowAuthModal: setCartAuthModal,
+  } = useCart();
+  const {
+    totalWishlistItems,
+    showAuthModal: wishlistAuthModal,
+    setShowAuthModal: setWishlistAuthModal,
+  } = useWishlist();
+  const { user } = useAuth();
 
   const appId = encodeURIComponent(window.location.hostname || "bike-showroom");
 
+  const handleCloseAuthModal = () => {
+    setCartAuthModal(false);
+    setWishlistAuthModal(false);
+  };
+
+  const initials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : "";
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Auth Modal — always available globally */}
+      <AuthModal
+        open={cartAuthModal || wishlistAuthModal}
+        onClose={handleCloseAuthModal}
+      />
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,19 +78,106 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6">
               <Link
                 to="/"
                 className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.catalog.link"
               >
                 Catalog
               </Link>
               <Link
+                to="/accessories"
+                className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.accessories.link"
+              >
+                Accessories
+              </Link>
+              <Link
+                to="/maintenance"
+                className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.maintenance.link"
+              >
+                Maintenance
+              </Link>
+              <Link
                 to="/contact"
                 className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.contact.link"
               >
                 Contact
               </Link>
+
+              {/* Wishlist */}
+              <Link
+                to="/wishlist"
+                className="relative inline-flex items-center justify-center w-9 h-9 rounded-sm border border-border bg-card hover:bg-muted hover:text-red-500 transition-colors text-muted-foreground"
+                data-ocid="nav.wishlist.button"
+                aria-label={`Wishlist${totalWishlistItems > 0 ? ` (${totalWishlistItems} items)` : ""}`}
+              >
+                <Heart className="w-4 h-4" />
+                {totalWishlistItems > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-display font-800 w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                    {totalWishlistItems > 9 ? "9+" : totalWishlistItems}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart */}
+              <Link
+                to="/checkout"
+                className="relative inline-flex items-center justify-center w-9 h-9 rounded-sm border border-border bg-card hover:bg-muted hover:text-primary transition-colors text-muted-foreground"
+                data-ocid="nav.cart.button"
+                aria-label={`Cart${totalItems > 0 ? ` (${totalItems} items)` : ""}`}
+              >
+                <ShoppingCart className="w-4 h-4" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground text-[10px] font-display font-800 w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                    {totalItems > 9 ? "9+" : totalItems}
+                  </span>
+                )}
+              </Link>
+
+              {/* Auth section */}
+              {user ? (
+                /* Profile avatar + dropdown */
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setProfileOpen((prev) => !prev)}
+                    className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-display font-800 text-sm tracking-wider transition-colors shadow-sm"
+                    aria-label="Open profile menu"
+                    aria-expanded={profileOpen}
+                    data-ocid="nav.user.button"
+                  >
+                    {initials || <User className="w-4 h-4" />}
+                  </button>
+                  <ProfileDropdown
+                    open={profileOpen}
+                    onClose={() => setProfileOpen(false)}
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/signin"
+                    className="inline-flex items-center gap-1.5 h-9 px-3 rounded-sm border border-border bg-card hover:bg-muted hover:text-foreground text-muted-foreground font-display font-700 text-xs tracking-widest uppercase transition-colors"
+                    data-ocid="nav.signin.link"
+                  >
+                    <LogIn className="w-3.5 h-3.5" />
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="inline-flex items-center gap-1.5 h-9 px-3 rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 font-display font-700 text-xs tracking-widest uppercase transition-colors"
+                    data-ocid="nav.signup.link"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+
               <Button
                 onClick={() => navigate({ to: "/contact" })}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 font-display font-700 tracking-widest uppercase text-sm rounded-sm"
@@ -53,19 +187,51 @@ export default function Layout({ children }: LayoutProps) {
               </Button>
             </nav>
 
-            {/* Mobile menu button */}
-            <button
-              type="button"
-              className="md:hidden text-foreground p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
+            {/* Mobile right controls */}
+            <div className="md:hidden flex items-center gap-1">
+              {/* Mobile Profile Icon — left of hamburger */}
+              {user ? (
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setProfileOpen((prev) => !prev)}
+                    className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-display font-800 text-sm tracking-wider transition-colors"
+                    aria-label="Open profile menu"
+                    aria-expanded={profileOpen}
+                    data-ocid="nav.user.button"
+                  >
+                    {initials || <User className="w-4 h-4" />}
+                  </button>
+                  <ProfileDropdown
+                    open={profileOpen}
+                    onClose={() => setProfileOpen(false)}
+                  />
+                </div>
               ) : (
-                <Menu className="w-6 h-6" />
+                <Link
+                  to="/signin"
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-sm border border-border bg-card hover:bg-muted text-muted-foreground transition-colors"
+                  aria-label="Sign in"
+                  data-ocid="nav.signin.link"
+                >
+                  <LogIn className="w-4 h-4" />
+                </Link>
               )}
-            </button>
+
+              {/* Hamburger */}
+              <button
+                type="button"
+                className="text-foreground p-2"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -77,16 +243,87 @@ export default function Layout({ children }: LayoutProps) {
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.catalog.link"
               >
                 Catalog
+              </Link>
+              <Link
+                to="/accessories"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.accessories.link"
+              >
+                Accessories
+              </Link>
+              <Link
+                to="/maintenance"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.maintenance.link"
+              >
+                Maintenance
               </Link>
               <Link
                 to="/contact"
                 onClick={() => setMobileMenuOpen(false)}
                 className="font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors [&.active]:text-primary"
+                data-ocid="nav.contact.link"
               >
                 Contact
               </Link>
+              <Link
+                to="/wishlist"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-red-500 transition-colors"
+                data-ocid="nav.wishlist.button"
+              >
+                <Heart className="w-4 h-4" />
+                Wishlist
+                {totalWishlistItems > 0 && (
+                  <span className="bg-red-500 text-white text-[10px] font-800 w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalWishlistItems > 9 ? "9+" : totalWishlistItems}
+                  </span>
+                )}
+              </Link>
+              <Link
+                to="/checkout"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 font-display font-600 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
+                data-ocid="nav.cart.button"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                Cart
+                {totalItems > 0 && (
+                  <span className="bg-primary text-primary-foreground text-[10px] font-800 w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems > 9 ? "9+" : totalItems}
+                  </span>
+                )}
+              </Link>
+
+              {/* Mobile auth — only sign in/up for unauthenticated */}
+              {!user && (
+                <>
+                  <Link
+                    to="/signin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 font-display font-700 text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
+                    data-ocid="nav.signin.link"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 font-display font-700 text-sm tracking-widest uppercase text-primary hover:text-primary/80 transition-colors"
+                    data-ocid="nav.signup.link"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    Sign Up
+                  </Link>
+                </>
+              )}
+
               <Button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -137,6 +374,22 @@ export default function Layout({ children }: LayoutProps) {
                     className="text-muted-foreground hover:text-primary transition-colors text-sm font-body"
                   >
                     Browse Catalog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/accessories"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-body"
+                  >
+                    Accessories
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/maintenance"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm font-body"
+                  >
+                    Maintenance
                   </Link>
                 </li>
                 <li>

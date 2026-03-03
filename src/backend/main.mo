@@ -2,10 +2,10 @@ import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
-import Migration "migration";
+
 import Iter "mo:core/Iter";
 
-(with migration = Migration.run)
+
 actor {
   type Bike = {
     id : Nat;

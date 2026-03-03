@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
+import { useWishlist } from "@/context/WishlistContext";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Gauge, Zap } from "lucide-react";
+import { ArrowRight, Gauge, Heart, Zap } from "lucide-react";
 import type { Bike } from "../backend";
 import { normalizeBikeCategory } from "../utils/bikeCategories";
 
@@ -16,9 +17,10 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 const BIKE_IMAGE_OVERRIDES: Record<string, string> = {
-  "BMW S 1000 RR": "/assets/uploads/bmw-s1000rr-standard1737458444675-1.webp",
+  "BMW S 1000 RR": "/assets/uploads/bmw-g310-rr-standard1721222214623-1.webp",
   "Yamaha MT-15":
     "/assets/uploads/yamaha-mt-15-standard-20241759582770305-1.webp",
+  "Hero Splendor Plus": "/assets/uploads/drum-brake-obd-2b1744875559407-1.webp",
 };
 
 function getPlaceholderImage(bike: { name: string; category: string }): string {
@@ -44,6 +46,8 @@ export default function BikeCard({ bike }: BikeCardProps) {
     bike.photos.length > 0
       ? bike.photos[0]
       : (override ?? getPlaceholderImage(bike));
+  const { toggleWishlist, isWishlisted } = useWishlist();
+  const wishlisted = isWishlisted(bike.id.toString());
 
   return (
     <Link
@@ -77,17 +81,48 @@ export default function BikeCard({ bike }: BikeCardProps) {
               {normalizedCategory}
             </Badge>
           </div>
-          {/* Engine indicator */}
-          {bike.engine && (
-            <div className="absolute top-3 right-3">
+          {/* Engine indicator + Wishlist heart */}
+          <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
+            {bike.engine && (
               <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm rounded-sm px-2 py-1">
                 <Zap className="w-3.5 h-3.5 text-primary" />
                 <span className="text-xs font-display font-600 text-foreground">
                   {bike.engine}
                 </span>
               </div>
-            </div>
-          )}
+            )}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleWishlist({
+                  id: bike.id.toString(),
+                  name: bike.name,
+                  brand: bike.brand,
+                  price: formatPrice(bike.price),
+                  image: imageUrl,
+                  inStock: true,
+                  type: "bike",
+                });
+              }}
+              className={`w-8 h-8 rounded-sm flex items-center justify-center transition-all duration-200 hover:scale-110 ${
+                wishlisted
+                  ? "bg-red-500/20 border border-red-500/40 text-red-500"
+                  : "bg-background/80 backdrop-blur-sm border border-border/60 text-muted-foreground hover:text-red-500 hover:border-red-500/40 hover:bg-red-500/10"
+              }`}
+              aria-label={
+                wishlisted
+                  ? `Remove ${bike.name} from wishlist`
+                  : `Add ${bike.name} to wishlist`
+              }
+              data-ocid="catalog.card.toggle"
+            >
+              <Heart
+                className={`w-4 h-4 transition-all duration-200 ${wishlisted ? "fill-current text-red-500" : ""}`}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Content */}

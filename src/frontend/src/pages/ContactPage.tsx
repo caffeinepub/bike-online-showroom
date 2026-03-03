@@ -309,7 +309,7 @@ export default function ContactPage() {
                   },
                   {
                     step: "02",
-                    text: "Our team contacts you within 24 hours.",
+                    text: "Our team contacts you within 24 hours via email at ashwinkumar8206@gmail.com.",
                   },
                   {
                     step: "03",
@@ -334,17 +334,21 @@ export default function ContactPage() {
 
             <div className="bg-primary/10 border border-primary/20 rounded-sm p-6">
               <h3 className="font-display font-700 text-sm tracking-widest uppercase text-foreground mb-2">
-                Need Immediate Help?
+                Contact Us Directly
               </h3>
               <p className="text-muted-foreground text-sm font-body mb-4">
-                Our showroom is open Monday–Saturday, 9am–6pm.
+                Have a question about a bike? Email us directly and we'll get
+                back to you as soon as possible.
               </p>
-              <div className="flex items-center gap-2 text-primary">
-                <Phone className="w-4 h-4" />
-                <span className="font-display font-600 text-sm tracking-wider">
-                  +1 (800) MOTO-VERSE
+              <a
+                href="mailto:ashwinkumar8206@gmail.com"
+                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              >
+                <Mail className="w-4 h-4 flex-shrink-0" />
+                <span className="font-display font-600 text-sm tracking-wider break-all">
+                  ashwinkumar8206@gmail.com
                 </span>
-              </div>
+              </a>
             </div>
           </div>
         </div>

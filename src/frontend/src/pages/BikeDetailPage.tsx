@@ -24,6 +24,13 @@ const CATEGORY_IMAGES: Record<string, string> = {
   bmx: "/assets/generated/bike-bmx.dim_800x600.png",
 };
 
+const BIKE_IMAGE_OVERRIDES: Record<string, string> = {
+  "BMW S 1000 RR": "/assets/uploads/bmw-g310-rr-standard1721222214623-1.webp",
+  "Yamaha MT-15":
+    "/assets/uploads/yamaha-mt-15-standard-20241759582770305-1.webp",
+  "Hero Splendor Plus": "/assets/uploads/drum-brake-obd-2b1744875559407-1.webp",
+};
+
 function getPlaceholderImage(category: string): string {
   const key = category.toLowerCase();
   for (const [k, v] of Object.entries(CATEGORY_IMAGES)) {
@@ -51,7 +58,7 @@ export default function BikeDetailPage() {
   const photos = bike
     ? bike.photos.length > 0
       ? bike.photos
-      : [getPlaceholderImage(bike.category)]
+      : [BIKE_IMAGE_OVERRIDES[bike.name] ?? getPlaceholderImage(bike.category)]
     : [];
 
   const prevPhoto = () =>
@@ -127,9 +134,16 @@ export default function BikeDetailPage() {
                 alt={`${bike.name} view ${activePhotoIndex + 1}`}
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = getPlaceholderImage(
-                    bike.category,
-                  );
+                  const target = e.target as HTMLImageElement;
+                  const override = BIKE_IMAGE_OVERRIDES[bike.name];
+                  const overrideAbsolute = override
+                    ? window.location.origin + override
+                    : null;
+                  if (override && target.src !== overrideAbsolute) {
+                    target.src = override;
+                  } else {
+                    target.src = getPlaceholderImage(bike.category);
+                  }
                 }}
               />
               {photos.length > 1 && (
