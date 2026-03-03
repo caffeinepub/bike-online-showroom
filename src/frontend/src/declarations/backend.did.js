@@ -51,7 +51,6 @@ export const idlService = IDL.Service({
   'getAllBikes' : IDL.Func([], [IDL.Vec(Bike)], ['query']),
   'getAllInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
   'getBike' : IDL.Func([IDL.Nat], [Bike], ['query']),
-  'seedBikes' : IDL.Func([], [], []),
   'submitInquiry' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
       [],
@@ -105,7 +104,6 @@ export const idlFactory = ({ IDL }) => {
     'getAllBikes' : IDL.Func([], [IDL.Vec(Bike)], ['query']),
     'getAllInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
     'getBike' : IDL.Func([IDL.Nat], [Bike], ['query']),
-    'seedBikes' : IDL.Func([], [], []),
     'submitInquiry' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Text],
         [],

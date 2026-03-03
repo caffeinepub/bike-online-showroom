@@ -29,10 +29,24 @@ export interface Inquiry {
     bikeId: bigint;
 }
 export interface backendInterface {
+    /**
+     * / Adds a new bike to the catalog. Returns the new bike's unique ID.
+     */
     addBike(name: string, brand: string, category: string, price: bigint, photos: Array<string>, engine: string | null, weight: bigint | null, frame: string | null, colorOptions: Array<string>, description: string, mileage: string | null): Promise<void>;
+    /**
+     * / Returns all bikes sorted by price from lowest to highest.
+     */
     getAllBikes(): Promise<Array<Bike>>;
+    /**
+     * / Returns all submitted inquiries.
+     */
     getAllInquiries(): Promise<Array<Inquiry>>;
+    /**
+     * / Retrieves a single bike by its unique ID. Traps if the ID does not exist!
+     */
     getBike(id: bigint): Promise<Bike>;
-    seedBikes(): Promise<void>;
+    /**
+     * / Submits a new inquiry for a specific bike.
+     */
     submitInquiry(name: string, email: string, phone: string, bikeId: bigint, message: string): Promise<void>;
 }

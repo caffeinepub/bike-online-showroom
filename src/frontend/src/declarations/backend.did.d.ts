@@ -32,6 +32,9 @@ export interface Inquiry {
   'bikeId' : bigint,
 }
 export interface _SERVICE {
+  /**
+   * / Adds a new bike to the catalog. Returns the new bike's unique ID.
+   */
   'addBike' : ActorMethod<
     [
       string,
@@ -48,10 +51,21 @@ export interface _SERVICE {
     ],
     undefined
   >,
+  /**
+   * / Returns all bikes sorted by price from lowest to highest.
+   */
   'getAllBikes' : ActorMethod<[], Array<Bike>>,
+  /**
+   * / Returns all submitted inquiries.
+   */
   'getAllInquiries' : ActorMethod<[], Array<Inquiry>>,
+  /**
+   * / Retrieves a single bike by its unique ID. Traps if the ID does not exist!
+   */
   'getBike' : ActorMethod<[bigint], Bike>,
-  'seedBikes' : ActorMethod<[], undefined>,
+  /**
+   * / Submits a new inquiry for a specific bike.
+   */
   'submitInquiry' : ActorMethod<
     [string, string, string, bigint, string],
     undefined

@@ -15,6 +15,12 @@ const CATEGORY_IMAGES: Record<string, string> = {
   "Adventure Bikes": "/assets/generated/bike-electric.dim_800x600.png",
 };
 
+const BIKE_IMAGE_OVERRIDES: Record<string, string> = {
+  "BMW S 1000 RR": "/assets/uploads/bmw-s1000rr-standard1737458444675-1.webp",
+  "Yamaha MT-15":
+    "/assets/uploads/yamaha-mt-15-standard-20241759582770305-1.webp",
+};
+
 function getPlaceholderImage(bike: { name: string; category: string }): string {
   const normalized = normalizeBikeCategory(bike);
   return (
@@ -33,8 +39,11 @@ function formatPrice(price: bigint): string {
 
 export default function BikeCard({ bike }: BikeCardProps) {
   const normalizedCategory = normalizeBikeCategory(bike);
+  const override = BIKE_IMAGE_OVERRIDES[bike.name];
   const imageUrl =
-    bike.photos.length > 0 ? bike.photos[0] : getPlaceholderImage(bike);
+    bike.photos.length > 0
+      ? bike.photos[0]
+      : (override ?? getPlaceholderImage(bike));
 
   return (
     <Link
@@ -51,7 +60,15 @@ export default function BikeCard({ bike }: BikeCardProps) {
             alt={bike.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = getPlaceholderImage(bike);
+              const target = e.target as HTMLImageElement;
+              if (
+                override &&
+                target.src !== window.location.origin + override
+              ) {
+                target.src = override;
+              } else {
+                target.src = getPlaceholderImage(bike);
+              }
             }}
           />
           {/* Category badge */}
