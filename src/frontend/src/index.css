@@ -1,0 +1,144 @@
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/mona-sans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/cabinet-grotesk.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.25rem;
+
+    /* Racing Red + Carbon Dark — dark-first theme */
+    --background: 0.11 0.008 255;
+    --foreground: 0.96 0.005 255;
+    --card: 0.15 0.009 255;
+    --card-foreground: 0.96 0.005 255;
+    --popover: 0.17 0.009 255;
+    --popover-foreground: 0.96 0.005 255;
+    --primary: 0.62 0.22 25;
+    --primary-foreground: 0.97 0.005 0;
+    --secondary: 0.19 0.01 255;
+    --secondary-foreground: 0.96 0.005 255;
+    --muted: 0.18 0.008 255;
+    --muted-foreground: 0.58 0.012 255;
+    --accent: 0.62 0.22 25;
+    --accent-foreground: 0.97 0.005 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.24 0.012 255;
+    --input: 0.19 0.01 255;
+    --ring: 0.62 0.22 25;
+    --chart-1: 0.62 0.22 25;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.13 0.009 255;
+    --sidebar-foreground: 0.96 0.005 255;
+    --sidebar-primary: 0.62 0.22 25;
+    --sidebar-primary-foreground: 0.97 0.005 0;
+    --sidebar-accent: 0.18 0.008 255;
+    --sidebar-accent-foreground: 0.96 0.005 255;
+    --sidebar-border: 0.24 0.012 255;
+    --sidebar-ring: 0.62 0.22 25;
+  }
+
+  .dark {
+    --background: 0.11 0.008 255;
+    --foreground: 0.96 0.005 255;
+    --card: 0.15 0.009 255;
+    --card-foreground: 0.96 0.005 255;
+    --popover: 0.17 0.009 255;
+    --popover-foreground: 0.96 0.005 255;
+    --primary: 0.62 0.22 25;
+    --primary-foreground: 0.97 0.005 0;
+    --secondary: 0.19 0.01 255;
+    --secondary-foreground: 0.96 0.005 255;
+    --muted: 0.18 0.008 255;
+    --muted-foreground: 0.58 0.012 255;
+    --accent: 0.62 0.22 25;
+    --accent-foreground: 0.97 0.005 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.24 0.012 255;
+    --input: 0.19 0.01 255;
+    --ring: 0.62 0.22 25;
+    --chart-1: 0.62 0.22 25;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.13 0.009 255;
+    --sidebar-foreground: 0.96 0.005 255;
+    --sidebar-primary: 0.62 0.22 25;
+    --sidebar-primary-foreground: 0.97 0.005 0;
+    --sidebar-accent: 0.18 0.008 255;
+    --sidebar-accent-foreground: 0.96 0.005 255;
+    --sidebar-border: 0.24 0.012 255;
+    --sidebar-ring: 0.62 0.22 25;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-gradient-orange {
+    background: linear-gradient(135deg, oklch(0.62 0.22 25), oklch(0.72 0.2 15));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      oklch(0.09 0.008 255 / 0.94) 0%,
+      oklch(0.09 0.008 255 / 0.72) 50%,
+      oklch(0.09 0.008 255 / 0.28) 100%
+    );
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px oklch(0.62 0.22 25 / 0.25);
+  }
+}
